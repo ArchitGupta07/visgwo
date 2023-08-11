@@ -1,9 +1,15 @@
 //@desc Get all contacts
 //@route GET /api/contacts
 //@access public
+const asyncHandler = require("exress-async-handler");
+
+const Contact = require("../models/contactModel");
 
 const getContacts = async (req,res)=>{
-    res.status(200).json({message:"Get all contacts"});
+
+    const contacts = await Contact.find();
+    // res.status(200).json({message:"Get all contacts"});
+    res.status(200).json(contacts);
     
 } 
 

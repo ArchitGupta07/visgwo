@@ -2,7 +2,7 @@ console.log("I am in an express project")
 
 const express = require('express');
 const errorHandler = require('./middleware/errorHandler');
-const connectDB = require('../config/dbConnection');
+const connectDB = require('./config/dbConnection');
 const dotenv = require("dotenv").config(); // npm install dotenv
 // const path = require('path');
 

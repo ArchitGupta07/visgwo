@@ -1,7 +1,7 @@
 //@desc Get all contacts
 //@route GET /api/contacts
 //@access public
-const asyncHandler = require("exress-async-handler");
+// const asyncHandler = require("exress-async-handler");
 
 const Contact = require("../models/contactModel");
 
@@ -25,6 +25,12 @@ const createContact = async (req,res)=>{
     if( !name || !email || !phone){
         throw new Error("All fields are mandatory");
     }
+
+    const contact =await Contact.create({
+        name,
+        email,
+        phone,
+    });
     
     res.status(201).json({message:"Create Contact"});
 } 
@@ -35,7 +41,16 @@ const createContact = async (req,res)=>{
 //@access public
 
 const getContact = async (req,res)=>{
-    res.status(200).json({message:`Get contact for ${req.params.id}`});
+
+    
+
+    const contact = await Contact.findById(req.params.id);
+    if(!contact){
+        res.status(404);
+        throw new Error("Contact not found");
+    }
+    // res.status(200).json({message:`Get contact for ${req.params.id}`});
+    res.status(200).json(contact);
     
 } 
 

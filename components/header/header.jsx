@@ -1,116 +1,101 @@
 "use client";
-import React, { useState } from "react";
+
+import React from "react";
+import "@/components/header/header.scss";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+// import { logout } from "@/utils/actions";
+// import { SessionData } from "@/utils/lib";
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+const Header = ({ session }) => {
+  const path = usePathname();
+  // console.log(path);
 
   return (
-    <header className="header">
-      <nav className="bg-blue-600 p-4">
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-          <div className="relative flex items-center justify-between h-16">
-            {/* Mobile Menu Button */}
-            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-              <button
-                onClick={toggleMenu}
-                className="text-white focus:outline-none"
-              >
-                <span className="sr-only">Open main menu</span>
-                <svg
-                  className="block h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-            {/* Logo */}
-            <div className="flex-1 flex items-center justify-center sm:justify-start">
-              <div className="flex-shrink-0 text-white font-bold text-xl">
-                My Logo
-              </div>
-            </div>
-            {/* Desktop Navigation Links */}
-            <div className="hidden sm:block sm:ml-6">
-              <div className="flex space-x-4">
-                <Link
-                  href="/"
-                  className="text-white px-3 py-2 rounded-md text-lg hover:bg-blue-500"
-                >
-                  Home
-                </Link>
+    <header className="container header">
+      <div className="logo-part">
+        {/* <Image src="/logo.png" width={40} height={40} alt="logo" /> */}
+        <h2>GiveExams</h2>
+        {/* {session.userName} */}
+      </div>
+      <nav>
+        <ul>
+          <li
+            className={
+              path === "/dashboard"
+                ? "active main-header-list"
+                : "main-header-list"
+            }
+          >
+            <Link href="/dashboard">Home</Link>
+          </li>
 
-                <Link
-                  href="/about"
-                  className="text-white px-3 py-2 rounded-md text-lg hover:bg-blue-500"
-                >
-                  About
-                </Link>
-
-                <Link
-                  href="/services"
-                  className="text-white px-3 py-2 rounded-md text-lg hover:bg-blue-500"
-                >
-                  Services
-                </Link>
-
-                <Link
-                  href="/contact"
-                  className="text-white px-3 py-2 rounded-md text-lg hover:bg-blue-500"
-                >
-                  Contact
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+          <li
+            className={
+              path === "/dashboard/exams"
+                ? "active main-header-list"
+                : "main-header-list"
+            }
+          >
+            <Link href="/dashboard/exams">Exams</Link>
+          </li>
+          <li
+            className={
+              path === "/dashboard/blog"
+                ? "active main-header-list"
+                : "main-header-list"
+            }
+          >
+            <Link href="/dashboard/blogs">Blogs</Link>
+          </li>
+          <li
+            className={
+              path === "/dashboard/code"
+                ? "active main-header-list"
+                : "main-header-list"
+            }
+          >
+            <Link href="/dashboard/code">Code Snippets</Link>
+          </li>
+          <li
+            className={
+              path === "/dashboard/about"
+                ? "active main-header-list"
+                : "main-header-list"
+            }
+          >
+            <Link href="/dashboard/about">About</Link>
+          </li>
+        </ul>
       </nav>
-      {/* Mobile Navigation Links */}
-      {isMenuOpen && (
-        <div className="sm:hidden bg-blue-600 p-4">
-          <div className="flex flex-col space-y-2">
-            <Link
-              href="/"
-              className="text-white px-3 py-2 rounded-md text-lg hover:bg-blue-500"
-            >
-              Home
-            </Link>
 
-            <Link
-              href="/about"
-              className="text-white px-3 py-2 rounded-md text-lg hover:bg-blue-500"
-            >
-              About
-            </Link>
+      {true ? (
+        <div className="signin-part">
+          <Link className="signin-link link" href="/signin">
+            Sign In
+          </Link>
+          <Link className="signup-link link" href="../signup">
+            Sign Up
+          </Link>
+        </div>
+      ) : (
+        <div className="user-card">
+          <Image
+            src="/avatar.png"
+            alt="profile photo"
+            width={40}
+            height={40}
+            className="user-avatar"
+          />
+          <div className="user-info">
+            <h1 className="user-name">Archit Gupta</h1>
 
-            <Link
-              href="/services"
-              className="text-white px-3 py-2 rounded-md text-lg hover:bg-blue-500"
-            >
-              Services
-            </Link>
-
-            <Link
-              href="/contact"
-              className="text-white px-3 py-2 rounded-md text-lg hover:bg-blue-500"
-            >
-              Contact
-            </Link>
+            <p className="user-email">ag213@snu.edi.in</p>
           </div>
+          <form action={logout}>
+            <button className="logout-btn">Log Out</button>
+          </form>
         </div>
       )}
     </header>

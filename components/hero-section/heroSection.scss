@@ -1,0 +1,11 @@
+.hero-section {
+  .container {
+    // height: 100vh;
+
+    background-image: url("/heroLabOne.jpg"); /* Add the image */
+    background-size: cover; /* Make the image cover the container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    border: 1px solid #ccc; /* Optional: Add a border for visibility */
+  }
+}
